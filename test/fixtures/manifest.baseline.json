@@ -1,0 +1,207 @@
+{
+  "generated_from": "0.1.0",
+  "webhooks": [
+    {
+      "key": "meta",
+      "mode": "sync"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "phone_number_id",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "type": "secret"
+    },
+    {
+      "key": "business_account_id",
+      "type": "string"
+    },
+    {
+      "key": "verify_token",
+      "type": "string"
+    },
+    {
+      "key": "register_webhook",
+      "type": "boolean"
+    },
+    {
+      "key": "fallback_template",
+      "type": "string"
+    },
+    {
+      "key": "fallback_template_language",
+      "type": "string"
+    },
+    {
+      "key": "mark_as_read",
+      "type": "boolean"
+    },
+    {
+      "key": "language",
+      "type": "select"
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "fields": []
+    },
+    {
+      "key": "register_webhook",
+      "fields": []
+    },
+    {
+      "key": "link_number",
+      "fields": ["phone_number", "code"]
+    },
+    {
+      "key": "diagnostic",
+      "fields": []
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "message_received",
+      "fields": [
+        {
+          "key": "message_type",
+          "options": [
+            "text",
+            "button",
+            "interactive",
+            "image",
+            "audio",
+            "video",
+            "document",
+            "sticker",
+            "location",
+            "contacts",
+            "reaction",
+            "other"
+          ]
+        },
+        {
+          "key": "payload",
+          "options": []
+        },
+        {
+          "key": "text",
+          "options": []
+        }
+      ],
+      "variables": [
+        {
+          "key": "from",
+          "type": "string"
+        },
+        {
+          "key": "contact_name",
+          "type": "string"
+        },
+        {
+          "key": "user",
+          "type": "string"
+        },
+        {
+          "key": "message_type",
+          "type": "string"
+        },
+        {
+          "key": "text",
+          "type": "string"
+        },
+        {
+          "key": "payload",
+          "type": "string"
+        },
+        {
+          "key": "latitude",
+          "type": "number"
+        },
+        {
+          "key": "longitude",
+          "type": "number"
+        },
+        {
+          "key": "emoji",
+          "type": "string"
+        },
+        {
+          "key": "message_id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "key": "message_failed",
+      "fields": [
+        {
+          "key": "reason",
+          "options": [
+            "outside_window",
+            "undeliverable",
+            "not_allowed",
+            "template",
+            "rate_limited",
+            "auth",
+            "permission",
+            "account",
+            "network",
+            "other"
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "to",
+          "type": "string"
+        },
+        {
+          "key": "reason",
+          "type": "string"
+        },
+        {
+          "key": "error_code",
+          "type": "number"
+        },
+        {
+          "key": "error_title",
+          "type": "string"
+        },
+        {
+          "key": "message_id",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "send_template",
+      "fields": ["to", "template", "language", "parameters"],
+      "outputs": [
+        {
+          "key": "message_id",
+          "type": "string"
+        },
+        {
+          "key": "wa_id",
+          "type": "string"
+        },
+        {
+          "key": "sent",
+          "type": "number"
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "status",
+      "settings": []
+    }
+  ]
+}

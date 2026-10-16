@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="380" viewBox="0 0 960 380">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker></defs>
+  <rect width="960" height="380" fill="#ffffff"/>
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <!-- Gladys -->
+    <rect x="20" y="40" width="200" height="140" rx="14" fill="#e8f1fb" stroke="#2f6fb5" stroke-width="2"/>
+    <text x="120" y="80" font-size="19" font-weight="bold" fill="#1f2328">Gladys Assistant</text>
+    <text x="120" y="108" font-size="13" fill="#57606a">brain (chat), users,</text>
+    <text x="120" y="126" font-size="13" fill="#57606a">scenes, dashboard</text>
+    <!-- container -->
+    <rect x="300" y="40" width="220" height="140" rx="14" fill="#eef8f0" stroke="#1a7f37" stroke-width="2"/>
+    <text x="410" y="80" font-size="19" font-weight="bold" fill="#1f2328">gladys-whatsapp</text>
+    <text x="410" y="108" font-size="13" fill="#57606a">Docker container</text>
+    <text x="410" y="126" font-size="13" fill="#57606a">24 h window, templates</text>
+    <text x="410" y="144" font-size="13" fill="#57606a">/data: windows, counters</text>
+    <!-- Meta -->
+    <rect x="620" y="40" width="200" height="140" rx="14" fill="#e9f8ef" stroke="#128c4b" stroke-width="2"/>
+    <text x="720" y="80" font-size="19" font-weight="bold" fill="#1f2328">WhatsApp</text>
+    <text x="720" y="100" font-size="19" font-weight="bold" fill="#1f2328">Cloud API</text>
+    <text x="720" y="126" font-size="13" fill="#57606a">graph.facebook.com</text>
+    <text x="720" y="144" font-size="13" fill="#57606a">(Meta)</text>
+    <!-- phone -->
+    <rect x="870" y="70" width="70" height="80" rx="12" fill="#f6f8fa" stroke="#57606a" stroke-width="2"/>
+    <text x="905" y="105" font-size="12" fill="#1f2328">user's</text>
+    <text x="905" y="121" font-size="12" fill="#1f2328">phone</text>
+    <!-- Gladys Plus -->
+    <rect x="300" y="250" width="220" height="90" rx="14" fill="#fff8e6" stroke="#bf8700" stroke-width="2"/>
+    <text x="410" y="285" font-size="18" font-weight="bold" fill="#1f2328">Gladys Plus</text>
+    <text x="410" y="310" font-size="13" fill="#57606a">public HTTPS webhook URL</text>
+    <!-- arrows -->
+    <path d="M225 110 H295" stroke="#57606a" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+    <text x="260" y="92" font-size="11" fill="#57606a">REST + WS</text>
+    <text x="260" y="208" font-size="11" fill="#57606a">/api/integration/v1/*</text>
+    <path d="M525 95 H615" stroke="#57606a" stroke-width="2" marker-end="url(#a)"/>
+    <text x="570" y="85" font-size="11" fill="#57606a">send (HTTPS)</text>
+    <path d="M825 110 H865" stroke="#57606a" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+    <path d="M720 185 V295 H525" fill="none" stroke="#bf8700" stroke-width="2" marker-end="url(#a)"/>
+    <text x="640" y="285" font-size="11" fill="#8a6100">webhook: messages,</text>
+    <text x="640" y="320" font-size="11" fill="#8a6100">statuses (POST)</text>
+    <path d="M300 295 H120 V185" fill="none" stroke="#bf8700" stroke-width="2" marker-end="url(#a)"/>
+    <text x="210" y="285" font-size="11" fill="#8a6100">relayed to Gladys</text>
+    <text x="480" y="368" font-size="13" fill="#57606a">Cloud transport. Without Gladys Plus there is no incoming path: Gladys can only send. Illustration.</text>
+  </g>
+</svg>

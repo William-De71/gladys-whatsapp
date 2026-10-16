@@ -1,0 +1,1054 @@
+{
+  "manifest_version": 1,
+  "type": "communication",
+  "name": "WhatsApp",
+  "description": {
+    "en": "Talk to Gladys on WhatsApp with the official WhatsApp Business Cloud API of Meta.",
+    "fr": "Discutez avec Gladys sur WhatsApp via l'API officielle WhatsApp Business Cloud de Meta.",
+    "de": "Chatten Sie mit Gladys auf WhatsApp über die offizielle WhatsApp Business Cloud API.",
+    "es": "Hable con Gladys en WhatsApp con la API oficial WhatsApp Business Cloud de Meta."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/william-de71/gladys-whatsapp:0.1.0",
+  "gladys_version": ">=5.1.0",
+  "categories": ["notifications", "assistants"],
+  "transports": ["cloud"],
+  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-whatsapp/main/cover.jpg",
+  "messaging": {
+    "receive": true
+  },
+  "webhooks": [
+    {
+      "key": "meta",
+      "mode": "sync",
+      "label": {
+        "en": "WhatsApp messages (Meta)",
+        "fr": "Messages WhatsApp (Meta)",
+        "de": "WhatsApp-Nachrichten (Meta)",
+        "es": "Mensajes de WhatsApp (Meta)"
+      }
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Connect your WhatsApp Business account",
+        "fr": "Connecter votre compte WhatsApp Business",
+        "de": "WhatsApp-Business-Konto verbinden",
+        "es": "Conectar su cuenta de WhatsApp Business"
+      },
+      "description": {
+        "en": "1. Create a Meta app of type Business and add the WhatsApp product. 2. In WhatsApp → API Setup, copy the phone number ID and the WhatsApp Business account ID. 3. In the Business settings, create a system user, give it the app and the WhatsApp account, then generate a token that never expires with the whatsapp_business_messaging and whatsapp_business_management permissions.",
+        "fr": "1. Créez une application Meta de type Entreprise et ajoutez-lui le produit WhatsApp. 2. Dans WhatsApp → Configuration de l'API, copiez l'identifiant du numéro de téléphone et celui du compte WhatsApp Business. 3. Dans les paramètres de l'entreprise, créez un utilisateur système, donnez-lui l'application et le compte WhatsApp, puis générez un jeton sans expiration avec les autorisations whatsapp_business_messaging et whatsapp_business_management.",
+        "de": "1. Erstellen Sie eine Meta-App vom Typ Business und fügen Sie das Produkt WhatsApp hinzu. 2. Kopieren Sie unter WhatsApp → API-Einrichtung die Telefonnummer-ID und die ID des WhatsApp-Business-Kontos. 3. Legen Sie in den Unternehmenseinstellungen einen Systembenutzer an, weisen Sie ihm die App und das WhatsApp-Konto zu und erzeugen Sie ein Token ohne Ablauf mit den Berechtigungen whatsapp_business_messaging und whatsapp_business_management.",
+        "es": "1. Cree una aplicación de Meta de tipo Empresa y añádale el producto WhatsApp. 2. En WhatsApp → Configuración de la API, copie el identificador del número de teléfono y el de la cuenta de WhatsApp Business. 3. En la configuración del negocio, cree un usuario del sistema, asígnele la aplicación y la cuenta de WhatsApp y genere un token sin caducidad con los permisos whatsapp_business_messaging y whatsapp_business_management."
+      },
+      "links": [
+        {
+          "url": "https://developers.facebook.com/apps",
+          "label": {
+            "en": "Meta apps",
+            "fr": "Applications Meta",
+            "de": "Meta-Apps",
+            "es": "Aplicaciones de Meta"
+          }
+        },
+        {
+          "url": "https://business.facebook.com/settings/system-users",
+          "label": {
+            "en": "System users",
+            "fr": "Utilisateurs système",
+            "de": "Systembenutzer",
+            "es": "Usuarios del sistema"
+          }
+        },
+        {
+          "url": "https://developers.facebook.com/documentation/business-messaging/whatsapp/get-started",
+          "label": {
+            "en": "Cloud API: get started",
+            "fr": "API Cloud : premiers pas",
+            "de": "Cloud API: Erste Schritte",
+            "es": "API de Cloud: primeros pasos"
+          }
+        }
+      ]
+    },
+    {
+      "key": "phone_number_id",
+      "type": "string",
+      "required": true,
+      "label": {
+        "en": "Phone number ID",
+        "fr": "Identifiant du numéro de téléphone",
+        "de": "Telefonnummer-ID",
+        "es": "Identificador del número de teléfono"
+      },
+      "description": {
+        "en": "The ID of the business phone number in WhatsApp → API Setup (not the phone number itself).",
+        "fr": "L'identifiant du numéro professionnel dans WhatsApp → Configuration de l'API (pas le numéro lui-même).",
+        "de": "Die ID der geschäftlichen Telefonnummer unter WhatsApp → API-Einrichtung (nicht die Nummer selbst).",
+        "es": "El identificador del número de empresa en WhatsApp → Configuración de la API (no el número en sí)."
+      },
+      "placeholder": {
+        "en": "e.g. 106540352242922",
+        "fr": "ex. 106540352242922",
+        "de": "z. B. 106540352242922",
+        "es": "p. ej. 106540352242922"
+      }
+    },
+    {
+      "key": "access_token",
+      "type": "secret",
+      "required": true,
+      "label": {
+        "en": "Access token",
+        "fr": "Jeton d'accès",
+        "de": "Zugriffstoken",
+        "es": "Token de acceso"
+      },
+      "description": {
+        "en": "Permanent token of the system user. The temporary token of the API Setup page expires after 24 hours. Stored encrypted, never shown again.",
+        "fr": "Jeton permanent de l'utilisateur système. Le jeton temporaire de la page de configuration de l'API expire au bout de 24 heures. Stocké chiffré, il n'est plus jamais affiché.",
+        "de": "Dauerhaftes Token des Systembenutzers. Das temporäre Token der API-Einrichtung läuft nach 24 Stunden ab. Wird verschlüsselt gespeichert und nie wieder angezeigt.",
+        "es": "Token permanente del usuario del sistema. El token temporal de la página de configuración de la API caduca a las 24 horas. Se guarda cifrado y no se vuelve a mostrar."
+      }
+    },
+    {
+      "key": "business_account_id",
+      "type": "string",
+      "label": {
+        "en": "WhatsApp Business account ID",
+        "fr": "Identifiant du compte WhatsApp Business",
+        "de": "ID des WhatsApp-Business-Kontos",
+        "es": "Identificador de la cuenta de WhatsApp Business"
+      },
+      "description": {
+        "en": "Optional. With it, the integration points the webhook of the account at Gladys Plus by itself, and the diagnostic lists your message templates.",
+        "fr": "Facultatif. Avec lui, l'intégration dirige elle-même le webhook du compte vers Gladys Plus, et le diagnostic liste vos modèles de message.",
+        "de": "Optional. Damit richtet die Integration den Webhook des Kontos selbst auf Gladys Plus aus, und die Diagnose listet Ihre Nachrichtenvorlagen auf.",
+        "es": "Opcional. Con él, la integración dirige por sí misma el webhook de la cuenta hacia Gladys Plus, y el diagnóstico lista sus plantillas de mensaje."
+      },
+      "placeholder": {
+        "en": "e.g. 102290129340398",
+        "fr": "ex. 102290129340398",
+        "de": "z. B. 102290129340398",
+        "es": "p. ej. 102290129340398"
+      }
+    },
+    {
+      "key": "reception",
+      "type": "section",
+      "label": {
+        "en": "Receive messages (Gladys Plus)",
+        "fr": "Recevoir les messages (Gladys Plus)",
+        "de": "Nachrichten empfangen (Gladys Plus)",
+        "es": "Recibir mensajes (Gladys Plus)"
+      },
+      "description": {
+        "en": "Meta delivers the messages to a public HTTPS address: Gladys Plus provides it. Save your Open API key in the \"Gladys Plus webhooks\" block below, then, in the Meta app (WhatsApp → Configuration), paste the webhook URL shown there as callback URL and the verify token below, and subscribe to the \"messages\" field. Without Gladys Plus, Gladys can only send.",
+        "fr": "Meta remet les messages à une adresse HTTPS publique : Gladys Plus la fournit. Enregistrez votre clé Open API dans le bloc « Webhooks Gladys Plus » ci-dessous, puis, dans l'application Meta (WhatsApp → Configuration), collez l'URL de webhook qui y est affichée comme URL de rappel et le jeton de vérification ci-dessous, et abonnez-vous au champ « messages ». Sans Gladys Plus, Gladys peut seulement envoyer.",
+        "de": "Meta stellt die Nachrichten an eine öffentliche HTTPS-Adresse zu: Gladys Plus stellt sie bereit. Speichern Sie Ihren Open-API-Schlüssel im Block „Gladys-Plus-Webhooks“ unten, fügen Sie dann in der Meta-App (WhatsApp → Konfiguration) die dort angezeigte Webhook-URL als Callback-URL und das Verifizierungstoken unten ein und abonnieren Sie das Feld „messages“. Ohne Gladys Plus kann Gladys nur senden.",
+        "es": "Meta entrega los mensajes a una dirección HTTPS pública: Gladys Plus la proporciona. Guarde su clave Open API en el bloque «Webhooks de Gladys Plus» de abajo y, en la aplicación de Meta (WhatsApp → Configuración), pegue como URL de devolución de llamada la URL del webhook que aparece allí y el token de verificación de abajo, y suscríbase al campo «messages». Sin Gladys Plus, Gladys solo puede enviar."
+      }
+    },
+    {
+      "key": "verify_token",
+      "type": "string",
+      "label": {
+        "en": "Verify token",
+        "fr": "Jeton de vérification",
+        "de": "Verifizierungstoken",
+        "es": "Token de verificación"
+      },
+      "description": {
+        "en": "Generated by the integration when empty. Paste the same value in the Meta app (WhatsApp → Configuration → Verify token).",
+        "fr": "Généré par l'intégration s'il est vide. Collez la même valeur dans l'application Meta (WhatsApp → Configuration → Jeton de vérification).",
+        "de": "Wird von der Integration erzeugt, wenn es leer ist. Fügen Sie denselben Wert in der Meta-App ein (WhatsApp → Konfiguration → Verifizierungstoken).",
+        "es": "La integración lo genera si está vacío. Pegue el mismo valor en la aplicación de Meta (WhatsApp → Configuración → Token de verificación)."
+      }
+    },
+    {
+      "key": "register_webhook",
+      "type": "boolean",
+      "default": true,
+      "label": {
+        "en": "Register the webhook at Meta automatically",
+        "fr": "Enregistrer automatiquement le webhook chez Meta",
+        "de": "Webhook automatisch bei Meta registrieren",
+        "es": "Registrar el webhook en Meta automáticamente"
+      },
+      "description": {
+        "en": "Needs the WhatsApp Business account ID. Done again whenever the Gladys Plus URL changes.",
+        "fr": "Nécessite l'identifiant du compte WhatsApp Business. Refait à chaque changement de l'URL Gladys Plus.",
+        "de": "Erfordert die ID des WhatsApp-Business-Kontos. Wird bei jeder Änderung der Gladys-Plus-URL wiederholt.",
+        "es": "Necesita el identificador de la cuenta de WhatsApp Business. Se repite cada vez que cambia la URL de Gladys Plus."
+      }
+    },
+    {
+      "key": "window",
+      "type": "section",
+      "label": {
+        "en": "Outside the 24-hour window",
+        "fr": "Hors de la fenêtre de 24 heures",
+        "de": "Außerhalb des 24-Stunden-Fensters",
+        "es": "Fuera de la ventana de 24 horas"
+      },
+      "description": {
+        "en": "WhatsApp only lets a business send free text within 24 hours of the user's last message. Past that, only an approved message template goes through. Create a Utility template with a single body variable, e.g. \"Gladys: {{1}}\", and name it below: Gladys then sends its notifications through it.",
+        "fr": "WhatsApp ne laisse une entreprise envoyer du texte libre que dans les 24 heures qui suivent le dernier message de l'utilisateur. Au-delà, seul un modèle de message approuvé passe. Créez un modèle de catégorie Utilitaire avec une seule variable dans le corps, par exemple « Gladys : {{1}} », et indiquez son nom ci-dessous : Gladys y fera alors passer ses notifications.",
+        "de": "WhatsApp erlaubt einem Unternehmen freien Text nur innerhalb von 24 Stunden nach der letzten Nachricht des Nutzers. Danach kommt nur eine genehmigte Nachrichtenvorlage durch. Legen Sie eine Vorlage der Kategorie Utility mit einer einzigen Variablen im Text an, z. B. „Gladys: {{1}}“, und geben Sie ihren Namen unten ein: Gladys sendet ihre Benachrichtigungen dann darüber.",
+        "es": "WhatsApp solo permite a una empresa enviar texto libre en las 24 horas siguientes al último mensaje del usuario. Pasado ese plazo, solo pasa una plantilla de mensaje aprobada. Cree una plantilla de categoría Utilidad con una sola variable en el cuerpo, p. ej. «Gladys: {{1}}», e indique su nombre abajo: Gladys enviará entonces sus notificaciones con ella."
+      },
+      "links": [
+        {
+          "url": "https://business.facebook.com/latest/whatsapp_manager/message_templates",
+          "label": {
+            "en": "Message templates",
+            "fr": "Modèles de message",
+            "de": "Nachrichtenvorlagen",
+            "es": "Plantillas de mensaje"
+          }
+        }
+      ]
+    },
+    {
+      "key": "fallback_template",
+      "type": "string",
+      "label": {
+        "en": "Fallback template",
+        "fr": "Modèle de secours",
+        "de": "Ersatzvorlage",
+        "es": "Plantilla de respaldo"
+      },
+      "description": {
+        "en": "Name of the approved template (lowercase letters, digits, underscores). Empty: messages outside the window are not delivered.",
+        "fr": "Nom du modèle approuvé (minuscules, chiffres, tirets bas). Vide : les messages hors fenêtre ne sont pas remis.",
+        "de": "Name der genehmigten Vorlage (Kleinbuchstaben, Ziffern, Unterstriche). Leer: Nachrichten außerhalb des Fensters werden nicht zugestellt.",
+        "es": "Nombre de la plantilla aprobada (minúsculas, cifras, guiones bajos). Vacío: los mensajes fuera de la ventana no se entregan."
+      },
+      "placeholder": {
+        "en": "e.g. gladys_notification",
+        "fr": "ex. gladys_notification",
+        "de": "z. B. gladys_notification",
+        "es": "p. ej. gladys_notification"
+      }
+    },
+    {
+      "key": "fallback_template_language",
+      "type": "string",
+      "default": "en_US",
+      "label": {
+        "en": "Template language",
+        "fr": "Langue du modèle",
+        "de": "Sprache der Vorlage",
+        "es": "Idioma de la plantilla"
+      },
+      "description": {
+        "en": "Language code of the template, as in WhatsApp Manager: en_US, fr, de, es…",
+        "fr": "Code de langue du modèle, comme dans WhatsApp Manager : en_US, fr, de, es…",
+        "de": "Sprachcode der Vorlage wie im WhatsApp Manager: en_US, fr, de, es …",
+        "es": "Código de idioma de la plantilla, como en WhatsApp Manager: en_US, fr, de, es…"
+      },
+      "placeholder": {
+        "en": "en_US",
+        "fr": "fr",
+        "de": "de",
+        "es": "es"
+      }
+    },
+    {
+      "key": "mark_as_read",
+      "type": "boolean",
+      "default": true,
+      "label": {
+        "en": "Mark received messages as read",
+        "fr": "Marquer les messages reçus comme lus",
+        "de": "Empfangene Nachrichten als gelesen markieren",
+        "es": "Marcar los mensajes recibidos como leídos"
+      },
+      "description": {
+        "en": "The sender sees the blue ticks once Gladys has the message.",
+        "fr": "L'expéditeur voit les coches bleues dès que Gladys a reçu le message.",
+        "de": "Der Absender sieht die blauen Häkchen, sobald Gladys die Nachricht hat.",
+        "es": "El remitente ve los dos checks azules en cuanto Gladys tiene el mensaje."
+      }
+    },
+    {
+      "key": "language",
+      "type": "select",
+      "default": "auto",
+      "label": {
+        "en": "Language of the replies",
+        "fr": "Langue des réponses",
+        "de": "Sprache der Antworten",
+        "es": "Idioma de las respuestas"
+      },
+      "description": {
+        "en": "Language of the few replies the integration sends itself before a number is linked (link code accepted or refused).",
+        "fr": "Langue des quelques réponses que l'intégration envoie elle-même avant qu'un numéro soit lié (code de liaison accepté ou refusé).",
+        "de": "Sprache der wenigen Antworten, die die Integration selbst sendet, bevor eine Nummer verknüpft ist (Verknüpfungscode angenommen oder abgelehnt).",
+        "es": "Idioma de las pocas respuestas que la integración envía por sí misma antes de vincular un número (código de vinculación aceptado o rechazado)."
+      },
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Automatic (language of the dashboard)",
+            "fr": "Automatique (langue du tableau de bord)",
+            "de": "Automatisch (Sprache des Dashboards)",
+            "es": "Automático (idioma del panel)"
+          }
+        },
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "Anglais",
+            "de": "Englisch",
+            "es": "Inglés"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "French",
+            "fr": "Français",
+            "de": "Französisch",
+            "es": "Francés"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "German",
+            "fr": "Allemand",
+            "de": "Deutsch",
+            "es": "Alemán"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Spanish",
+            "fr": "Espagnol",
+            "de": "Spanisch",
+            "es": "Español"
+          }
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "timeout_seconds": 30,
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "description": {
+        "en": "Reads the phone number at Meta: verified name, quality rating, status, and whether messages can be received.",
+        "fr": "Lit le numéro chez Meta : nom vérifié, note de qualité, statut, et si les messages peuvent être reçus.",
+        "de": "Liest die Nummer bei Meta: verifizierter Name, Qualitätsbewertung, Status und ob Nachrichten empfangen werden können.",
+        "es": "Lee el número en Meta: nombre verificado, calificación de calidad, estado y si se pueden recibir mensajes."
+      }
+    },
+    {
+      "key": "register_webhook",
+      "timeout_seconds": 60,
+      "label": {
+        "en": "Register the webhook",
+        "fr": "Enregistrer le webhook",
+        "de": "Webhook registrieren",
+        "es": "Registrar el webhook"
+      },
+      "description": {
+        "en": "Points the webhook of the WhatsApp Business account at the Gladys Plus URL now (Meta checks the verify token).",
+        "fr": "Dirige dès maintenant le webhook du compte WhatsApp Business vers l'URL Gladys Plus (Meta vérifie le jeton de vérification).",
+        "de": "Richtet den Webhook des WhatsApp-Business-Kontos jetzt auf die Gladys-Plus-URL aus (Meta prüft das Verifizierungstoken).",
+        "es": "Dirige ahora el webhook de la cuenta de WhatsApp Business hacia la URL de Gladys Plus (Meta comprueba el token de verificación)."
+      }
+    },
+    {
+      "key": "link_number",
+      "timeout_seconds": 30,
+      "label": {
+        "en": "Link a number without Gladys Plus",
+        "fr": "Lier un numéro sans Gladys Plus",
+        "de": "Nummer ohne Gladys Plus verknüpfen",
+        "es": "Vincular un número sin Gladys Plus"
+      },
+      "description": {
+        "en": "Without Gladys Plus, nothing comes back from WhatsApp: generate a link code in \"Link my account\", then enter it here with your WhatsApp number. Gladys then sends you its notifications (through the fallback template).",
+        "fr": "Sans Gladys Plus, rien ne revient de WhatsApp : générez un code dans « Lier mon compte », puis saisissez-le ici avec votre numéro WhatsApp. Gladys vous envoie alors ses notifications (via le modèle de secours).",
+        "de": "Ohne Gladys Plus kommt nichts von WhatsApp zurück: Erzeugen Sie unter „Mein Konto verknüpfen“ einen Code und geben Sie ihn hier mit Ihrer WhatsApp-Nummer ein. Gladys sendet Ihnen dann ihre Benachrichtigungen (über die Ersatzvorlage).",
+        "es": "Sin Gladys Plus, nada vuelve de WhatsApp: genere un código en «Vincular mi cuenta» e introdúzcalo aquí con su número de WhatsApp. Gladys le enviará entonces sus notificaciones (con la plantilla de respaldo)."
+      },
+      "fields": [
+        {
+          "key": "phone_number",
+          "type": "string",
+          "required": true,
+          "label": {
+            "en": "WhatsApp number",
+            "fr": "Numéro WhatsApp",
+            "de": "WhatsApp-Nummer",
+            "es": "Número de WhatsApp"
+          },
+          "placeholder": {
+            "en": "+33612345678",
+            "fr": "+33612345678",
+            "de": "+4915123456789",
+            "es": "+34612345678"
+          }
+        },
+        {
+          "key": "code",
+          "type": "string",
+          "required": true,
+          "label": {
+            "en": "Link code",
+            "fr": "Code de liaison",
+            "de": "Verknüpfungscode",
+            "es": "Código de vinculación"
+          },
+          "placeholder": {
+            "en": "ABCD2345",
+            "fr": "ABCD2345",
+            "de": "ABCD2345",
+            "es": "ABCD2345"
+          }
+        }
+      ]
+    },
+    {
+      "key": "diagnostic",
+      "timeout_seconds": 60,
+      "label": {
+        "en": "Diagnostic",
+        "fr": "Diagnostic",
+        "de": "Diagnose",
+        "es": "Diagnóstico"
+      },
+      "description": {
+        "en": "Writes to the Logs tab what Meta and Gladys Plus report (number, webhook, templates, contacts), for a report on GitHub or the forum. The token, the Open API key and the phone numbers are left out or masked.",
+        "fr": "Écrit dans l'onglet Journaux ce que rapportent Meta et Gladys Plus (numéro, webhook, modèles, contacts), pour un retour sur GitHub ou le forum. Le jeton, la clé Open API et les numéros de téléphone en sont retirés ou masqués.",
+        "de": "Schreibt in den Tab Protokolle, was Meta und Gladys Plus melden (Nummer, Webhook, Vorlagen, Kontakte), für eine Meldung auf GitHub oder im Forum. Token, Open-API-Schlüssel und Telefonnummern sind entfernt oder maskiert.",
+        "es": "Escribe en la pestaña Registros lo que indican Meta y Gladys Plus (número, webhook, plantillas, contactos), para un informe en GitHub o en el foro. El token, la clave Open API y los números de teléfono se omiten o se enmascaran."
+      }
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "message_received",
+      "label": {
+        "en": "WhatsApp message received",
+        "fr": "Message WhatsApp reçu",
+        "de": "WhatsApp-Nachricht empfangen",
+        "es": "Mensaje de WhatsApp recibido"
+      },
+      "description": {
+        "en": "A linked contact sent a message on WhatsApp. Text messages also go to Gladys as usual; use this trigger for buttons of templates, locations, photos or a precise text.",
+        "fr": "Un contact lié a envoyé un message sur WhatsApp. Les messages texte vont aussi à Gladys comme d'habitude ; servez-vous de ce déclencheur pour les boutons des modèles, les positions, les photos ou un texte précis.",
+        "de": "Ein verknüpfter Kontakt hat eine Nachricht auf WhatsApp gesendet. Textnachrichten gehen wie gewohnt auch an Gladys; nutzen Sie diesen Auslöser für Schaltflächen von Vorlagen, Standorte, Fotos oder einen bestimmten Text.",
+        "es": "Un contacto vinculado ha enviado un mensaje por WhatsApp. Los mensajes de texto también llegan a Gladys como siempre; use este disparador para los botones de las plantillas, las ubicaciones, las fotos o un texto concreto."
+      },
+      "fields": [
+        {
+          "key": "message_type",
+          "type": "multi_select",
+          "label": {
+            "en": "Message types",
+            "fr": "Types de message",
+            "de": "Nachrichtentypen",
+            "es": "Tipos de mensaje"
+          },
+          "description": {
+            "en": "Leave empty to react to every message.",
+            "fr": "Laissez vide pour réagir à tous les messages.",
+            "de": "Leer lassen, um auf alle Nachrichten zu reagieren.",
+            "es": "Déjelo vacío para reaccionar a todos los mensajes."
+          },
+          "options": [
+            {
+              "value": "text",
+              "label": {
+                "en": "Text",
+                "fr": "Texte",
+                "de": "Text",
+                "es": "Texto"
+              }
+            },
+            {
+              "value": "button",
+              "label": {
+                "en": "Button tapped (template)",
+                "fr": "Bouton touché (modèle)",
+                "de": "Schaltfläche getippt (Vorlage)",
+                "es": "Botón pulsado (plantilla)"
+              }
+            },
+            {
+              "value": "interactive",
+              "label": {
+                "en": "Reply button or list",
+                "fr": "Bouton de réponse ou liste",
+                "de": "Antwortschaltfläche oder Liste",
+                "es": "Botón de respuesta o lista"
+              }
+            },
+            {
+              "value": "image",
+              "label": {
+                "en": "Image",
+                "fr": "Image",
+                "de": "Bild",
+                "es": "Imagen"
+              }
+            },
+            {
+              "value": "audio",
+              "label": {
+                "en": "Audio or voice note",
+                "fr": "Audio ou note vocale",
+                "de": "Audio oder Sprachnachricht",
+                "es": "Audio o nota de voz"
+              }
+            },
+            {
+              "value": "video",
+              "label": {
+                "en": "Video",
+                "fr": "Vidéo",
+                "de": "Video",
+                "es": "Vídeo"
+              }
+            },
+            {
+              "value": "document",
+              "label": {
+                "en": "Document",
+                "fr": "Document",
+                "de": "Dokument",
+                "es": "Documento"
+              }
+            },
+            {
+              "value": "sticker",
+              "label": {
+                "en": "Sticker",
+                "fr": "Sticker",
+                "de": "Sticker",
+                "es": "Sticker"
+              }
+            },
+            {
+              "value": "location",
+              "label": {
+                "en": "Location",
+                "fr": "Position",
+                "de": "Standort",
+                "es": "Ubicación"
+              }
+            },
+            {
+              "value": "contacts",
+              "label": {
+                "en": "Contact card",
+                "fr": "Fiche contact",
+                "de": "Kontaktkarte",
+                "es": "Tarjeta de contacto"
+              }
+            },
+            {
+              "value": "reaction",
+              "label": {
+                "en": "Reaction",
+                "fr": "Réaction",
+                "de": "Reaktion",
+                "es": "Reacción"
+              }
+            },
+            {
+              "value": "other",
+              "label": {
+                "en": "Other",
+                "fr": "Autre",
+                "de": "Andere",
+                "es": "Otro"
+              }
+            }
+          ]
+        },
+        {
+          "key": "payload",
+          "type": "string",
+          "label": {
+            "en": "Button payload",
+            "fr": "Charge utile du bouton",
+            "de": "Nutzlast der Schaltfläche",
+            "es": "Carga útil del botón"
+          },
+          "description": {
+            "en": "Only the button with this payload (as defined in the template). Leave empty for any message.",
+            "fr": "Uniquement le bouton ayant cette charge utile (telle que définie dans le modèle). Laissez vide pour tout message.",
+            "de": "Nur die Schaltfläche mit dieser Nutzlast (wie in der Vorlage festgelegt). Leer lassen für jede Nachricht.",
+            "es": "Solo el botón con esta carga útil (tal como se definió en la plantilla). Déjelo vacío para cualquier mensaje."
+          }
+        },
+        {
+          "key": "text",
+          "type": "string",
+          "label": {
+            "en": "Exact text",
+            "fr": "Texte exact",
+            "de": "Genauer Text",
+            "es": "Texto exacto"
+          },
+          "description": {
+            "en": "Only a message of exactly this text (same case). Leave empty for any message.",
+            "fr": "Uniquement un message de ce texte exact (mêmes majuscules). Laissez vide pour tout message.",
+            "de": "Nur eine Nachricht mit genau diesem Text (gleiche Groß-/Kleinschreibung). Leer lassen für jede Nachricht.",
+            "es": "Solo un mensaje con este texto exacto (mismas mayúsculas). Déjelo vacío para cualquier mensaje."
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "from",
+          "type": "string",
+          "label": {
+            "en": "WhatsApp number",
+            "fr": "Numéro WhatsApp",
+            "de": "WhatsApp-Nummer",
+            "es": "Número de WhatsApp"
+          }
+        },
+        {
+          "key": "contact_name",
+          "type": "string",
+          "label": {
+            "en": "WhatsApp profile name",
+            "fr": "Nom du profil WhatsApp",
+            "de": "Name des WhatsApp-Profils",
+            "es": "Nombre del perfil de WhatsApp"
+          }
+        },
+        {
+          "key": "user",
+          "type": "string",
+          "label": {
+            "en": "Gladys user (first name)",
+            "fr": "Utilisateur Gladys (prénom)",
+            "de": "Gladys-Benutzer (Vorname)",
+            "es": "Usuario de Gladys (nombre)"
+          }
+        },
+        {
+          "key": "message_type",
+          "type": "string",
+          "label": {
+            "en": "Message type",
+            "fr": "Type de message",
+            "de": "Nachrichtentyp",
+            "es": "Tipo de mensaje"
+          }
+        },
+        {
+          "key": "text",
+          "type": "string",
+          "label": {
+            "en": "Text, button or caption",
+            "fr": "Texte, bouton ou légende",
+            "de": "Text, Schaltfläche oder Bildunterschrift",
+            "es": "Texto, botón o pie de foto"
+          }
+        },
+        {
+          "key": "payload",
+          "type": "string",
+          "label": {
+            "en": "Button payload",
+            "fr": "Charge utile du bouton",
+            "de": "Nutzlast der Schaltfläche",
+            "es": "Carga útil del botón"
+          }
+        },
+        {
+          "key": "latitude",
+          "type": "number",
+          "label": {
+            "en": "Latitude",
+            "fr": "Latitude",
+            "de": "Breitengrad",
+            "es": "Latitud"
+          }
+        },
+        {
+          "key": "longitude",
+          "type": "number",
+          "label": {
+            "en": "Longitude",
+            "fr": "Longitude",
+            "de": "Längengrad",
+            "es": "Longitud"
+          }
+        },
+        {
+          "key": "emoji",
+          "type": "string",
+          "label": {
+            "en": "Reaction emoji",
+            "fr": "Emoji de la réaction",
+            "de": "Reaktions-Emoji",
+            "es": "Emoji de la reacción"
+          }
+        },
+        {
+          "key": "message_id",
+          "type": "string",
+          "label": {
+            "en": "Message ID",
+            "fr": "Identifiant du message",
+            "de": "Nachrichten-ID",
+            "es": "Identificador del mensaje"
+          }
+        }
+      ]
+    },
+    {
+      "key": "message_failed",
+      "label": {
+        "en": "WhatsApp message not delivered",
+        "fr": "Message WhatsApp non remis",
+        "de": "WhatsApp-Nachricht nicht zugestellt",
+        "es": "Mensaje de WhatsApp no entregado"
+      },
+      "description": {
+        "en": "WhatsApp did not deliver a message of Gladys. Fires on the first failure for a number, then again only after a message to that number went through: a scene warning you through WhatsApp cannot loop.",
+        "fr": "WhatsApp n'a pas remis un message de Gladys. Se déclenche au premier échec pour un numéro, puis seulement après qu'un message vers ce numéro est de nouveau passé : une scène qui vous prévient par WhatsApp ne peut pas boucler.",
+        "de": "WhatsApp hat eine Nachricht von Gladys nicht zugestellt. Löst beim ersten Fehler für eine Nummer aus, danach erst wieder, nachdem eine Nachricht an diese Nummer durchgegangen ist: Eine Szene, die Sie über WhatsApp warnt, kann keine Schleife bilden.",
+        "es": "WhatsApp no ha entregado un mensaje de Gladys. Se activa con el primer fallo para un número y solo de nuevo después de que un mensaje a ese número haya pasado: una escena que le avisa por WhatsApp no puede entrar en bucle."
+      },
+      "fields": [
+        {
+          "key": "reason",
+          "type": "multi_select",
+          "label": {
+            "en": "Reasons",
+            "fr": "Causes",
+            "de": "Ursachen",
+            "es": "Causas"
+          },
+          "description": {
+            "en": "Leave empty to react to every reason.",
+            "fr": "Laissez vide pour réagir à toutes les causes.",
+            "de": "Leer lassen, um auf alle Ursachen zu reagieren.",
+            "es": "Déjelo vacío para reaccionar a todas las causas."
+          },
+          "options": [
+            {
+              "value": "outside_window",
+              "label": {
+                "en": "Outside the 24-hour window",
+                "fr": "Hors de la fenêtre de 24 heures",
+                "de": "Außerhalb des 24-Stunden-Fensters",
+                "es": "Fuera de la ventana de 24 horas"
+              }
+            },
+            {
+              "value": "undeliverable",
+              "label": {
+                "en": "Number not on WhatsApp or unreachable",
+                "fr": "Numéro absent de WhatsApp ou injoignable",
+                "de": "Nummer nicht bei WhatsApp oder nicht erreichbar",
+                "es": "Número sin WhatsApp o inalcanzable"
+              }
+            },
+            {
+              "value": "not_allowed",
+              "label": {
+                "en": "Number not allowed by the test number",
+                "fr": "Numéro non autorisé par le numéro de test",
+                "de": "Nummer von der Testnummer nicht zugelassen",
+                "es": "Número no permitido por el número de prueba"
+              }
+            },
+            {
+              "value": "template",
+              "label": {
+                "en": "Template refused (name, language, parameters)",
+                "fr": "Modèle refusé (nom, langue, paramètres)",
+                "de": "Vorlage abgelehnt (Name, Sprache, Parameter)",
+                "es": "Plantilla rechazada (nombre, idioma, parámetros)"
+              }
+            },
+            {
+              "value": "rate_limited",
+              "label": {
+                "en": "Too many messages",
+                "fr": "Trop de messages",
+                "de": "Zu viele Nachrichten",
+                "es": "Demasiados mensajes"
+              }
+            },
+            {
+              "value": "auth",
+              "label": {
+                "en": "Access token refused",
+                "fr": "Jeton d'accès refusé",
+                "de": "Zugriffstoken abgelehnt",
+                "es": "Token de acceso rechazado"
+              }
+            },
+            {
+              "value": "permission",
+              "label": {
+                "en": "Missing permission",
+                "fr": "Autorisation manquante",
+                "de": "Fehlende Berechtigung",
+                "es": "Falta un permiso"
+              }
+            },
+            {
+              "value": "account",
+              "label": {
+                "en": "Account or number restricted, billing",
+                "fr": "Compte ou numéro restreint, facturation",
+                "de": "Konto oder Nummer eingeschränkt, Abrechnung",
+                "es": "Cuenta o número restringido, facturación"
+              }
+            },
+            {
+              "value": "network",
+              "label": {
+                "en": "Meta unreachable",
+                "fr": "Meta injoignable",
+                "de": "Meta nicht erreichbar",
+                "es": "Meta inalcanzable"
+              }
+            },
+            {
+              "value": "other",
+              "label": {
+                "en": "Other error",
+                "fr": "Autre erreur",
+                "de": "Anderer Fehler",
+                "es": "Otro error"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "to",
+          "type": "string",
+          "label": {
+            "en": "WhatsApp number",
+            "fr": "Numéro WhatsApp",
+            "de": "WhatsApp-Nummer",
+            "es": "Número de WhatsApp"
+          }
+        },
+        {
+          "key": "reason",
+          "type": "string",
+          "label": {
+            "en": "Reason",
+            "fr": "Cause",
+            "de": "Ursache",
+            "es": "Causa"
+          }
+        },
+        {
+          "key": "error_code",
+          "type": "number",
+          "label": {
+            "en": "Meta error code",
+            "fr": "Code d'erreur Meta",
+            "de": "Meta-Fehlercode",
+            "es": "Código de error de Meta"
+          }
+        },
+        {
+          "key": "error_title",
+          "type": "string",
+          "label": {
+            "en": "Meta error message",
+            "fr": "Message d'erreur Meta",
+            "de": "Meta-Fehlermeldung",
+            "es": "Mensaje de error de Meta"
+          }
+        },
+        {
+          "key": "message_id",
+          "type": "string",
+          "label": {
+            "en": "Message ID",
+            "fr": "Identifiant du message",
+            "de": "Nachrichten-ID",
+            "es": "Identificador del mensaje"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "send_template",
+      "timeout_seconds": 60,
+      "label": {
+        "en": "Send a WhatsApp template",
+        "fr": "Envoyer un modèle WhatsApp",
+        "de": "WhatsApp-Vorlage senden",
+        "es": "Enviar una plantilla de WhatsApp"
+      },
+      "description": {
+        "en": "Sends an approved message template, which reaches the recipient even outside the 24-hour window. Scene variables ({{…}}) work in every field.",
+        "fr": "Envoie un modèle de message approuvé, qui atteint le destinataire même hors de la fenêtre de 24 heures. Les variables de scène ({{…}}) fonctionnent dans chaque champ.",
+        "de": "Sendet eine genehmigte Nachrichtenvorlage, die den Empfänger auch außerhalb des 24-Stunden-Fensters erreicht. Szenenvariablen ({{…}}) funktionieren in jedem Feld.",
+        "es": "Envía una plantilla de mensaje aprobada, que llega al destinatario incluso fuera de la ventana de 24 horas. Las variables de escena ({{…}}) funcionan en todos los campos."
+      },
+      "fields": [
+        {
+          "key": "to",
+          "type": "string",
+          "label": {
+            "en": "Recipient",
+            "fr": "Destinataire",
+            "de": "Empfänger",
+            "es": "Destinatario"
+          },
+          "description": {
+            "en": "International number. Empty: every linked contact.",
+            "fr": "Numéro international. Vide : tous les contacts liés.",
+            "de": "Internationale Nummer. Leer: alle verknüpften Kontakte.",
+            "es": "Número internacional. Vacío: todos los contactos vinculados."
+          },
+          "placeholder": {
+            "en": "+33612345678",
+            "fr": "+33612345678",
+            "de": "+4915123456789",
+            "es": "+34612345678"
+          }
+        },
+        {
+          "key": "template",
+          "type": "string",
+          "required": true,
+          "label": {
+            "en": "Template name",
+            "fr": "Nom du modèle",
+            "de": "Name der Vorlage",
+            "es": "Nombre de la plantilla"
+          },
+          "placeholder": {
+            "en": "e.g. door_open_alert",
+            "fr": "ex. alerte_porte_ouverte",
+            "de": "z. B. tuer_offen",
+            "es": "p. ej. alerta_puerta_abierta"
+          }
+        },
+        {
+          "key": "language",
+          "type": "string",
+          "label": {
+            "en": "Template language",
+            "fr": "Langue du modèle",
+            "de": "Sprache der Vorlage",
+            "es": "Idioma de la plantilla"
+          },
+          "description": {
+            "en": "Empty: the language of the fallback template.",
+            "fr": "Vide : la langue du modèle de secours.",
+            "de": "Leer: die Sprache der Ersatzvorlage.",
+            "es": "Vacío: el idioma de la plantilla de respaldo."
+          },
+          "placeholder": {
+            "en": "en_US",
+            "fr": "fr",
+            "de": "de",
+            "es": "es"
+          }
+        },
+        {
+          "key": "parameters",
+          "type": "string",
+          "label": {
+            "en": "Body parameters",
+            "fr": "Paramètres du corps",
+            "de": "Parameter des Textes",
+            "es": "Parámetros del cuerpo"
+          },
+          "description": {
+            "en": "Values of {{1}}, {{2}}… separated by |, or name=value for named parameters.",
+            "fr": "Valeurs de {{1}}, {{2}}… séparées par |, ou nom=valeur pour les paramètres nommés.",
+            "de": "Werte von {{1}}, {{2}} … getrennt durch |, oder name=wert für benannte Parameter.",
+            "es": "Valores de {{1}}, {{2}}… separados por |, o nombre=valor para los parámetros con nombre."
+          },
+          "placeholder": {
+            "en": "Kitchen|21.5 °C",
+            "fr": "Cuisine|21,5 °C",
+            "de": "Küche|21,5 °C",
+            "es": "Cocina|21,5 °C"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "key": "message_id",
+          "type": "string",
+          "label": {
+            "en": "Message ID",
+            "fr": "Identifiant du message",
+            "de": "Nachrichten-ID",
+            "es": "Identificador del mensaje"
+          }
+        },
+        {
+          "key": "wa_id",
+          "type": "string",
+          "label": {
+            "en": "WhatsApp ID of the recipient",
+            "fr": "Identifiant WhatsApp du destinataire",
+            "de": "WhatsApp-ID des Empfängers",
+            "es": "Identificador de WhatsApp del destinatario"
+          }
+        },
+        {
+          "key": "sent",
+          "type": "number",
+          "label": {
+            "en": "Messages sent",
+            "fr": "Messages envoyés",
+            "de": "Gesendete Nachrichten",
+            "es": "Mensajes enviados"
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "status",
+      "icon": "message-circle",
+      "label": {
+        "en": "WhatsApp",
+        "fr": "WhatsApp",
+        "de": "WhatsApp",
+        "es": "WhatsApp"
+      },
+      "description": {
+        "en": "Quality, messaging limit, messages of the day and reception of your WhatsApp number.",
+        "fr": "Qualité, limite d'envoi, messages du jour et réception de votre numéro WhatsApp.",
+        "de": "Qualität, Sendelimit, Nachrichten des Tages und Empfang Ihrer WhatsApp-Nummer.",
+        "es": "Calidad, límite de envío, mensajes del día y recepción de su número de WhatsApp."
+      }
+    }
+  ]
+}

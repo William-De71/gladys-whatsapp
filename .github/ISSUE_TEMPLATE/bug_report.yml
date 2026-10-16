@@ -1,0 +1,49 @@
+name: Bug report
+description: Something does not work as described in the documentation.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a problem. Never paste your access token, your Gladys Plus Open API key or a full webhook URL (it contains the key): the logs of the integration do not contain them, but check before posting.
+  - type: input
+    id: gladys-version
+    attributes:
+      label: Gladys version
+      description: Settings → System.
+      placeholder: '5.2.1'
+    validations:
+      required: true
+  - type: input
+    id: integration-version
+    attributes:
+      label: Integration version
+      description: Integrations → WhatsApp, or Settings → Supervision.
+      placeholder: '0.1.0'
+    validations:
+      required: true
+  - type: input
+    id: setup
+    attributes:
+      label: Setup
+      description: Test number of Meta or real number? Gladys Plus linked (reception) or not? Fallback template configured?
+      placeholder: 'Real number, Gladys Plus linked, template gladys_notification (fr)'
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened, and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        Press the "Diagnostic" button of the Configuration screen, then copy the lines starting with "WhatsApp diagnostic" from the Logs tab of the integration (phone numbers are masked). In developer mode, the environment variable `DEBUG=gladys-integration-sdk` adds the SDK debug logs.
+      render: text

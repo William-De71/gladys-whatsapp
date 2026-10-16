@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="534" viewBox="0 0 800 534">
+  <!-- Cover of the WhatsApp integration for Gladys Assistant (illustration,
+       not the WhatsApp logo). Built into cover.jpg by scripts/build-cover.sh. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1f1a"/>
+      <stop offset="1" stop-color="#103329"/>
+    </linearGradient>
+    <linearGradient id="phone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f2c33"/>
+      <stop offset="1" stop-color="#111b20"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#25d366" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#25d366" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="534" fill="url(#bg)"/>
+
+  <!-- faint chat-paper pattern -->
+  <g fill="#14402f">
+    <circle cx="60" cy="60" r="4"/><circle cx="180" cy="110" r="3"/><circle cx="300" cy="40" r="4"/>
+    <circle cx="520" cy="70" r="3"/><circle cx="660" cy="40" r="4"/><circle cx="740" cy="140" r="3"/>
+    <circle cx="70" cy="300" r="3"/><circle cx="40" cy="460" r="4"/><circle cx="210" cy="500" r="3"/>
+    <circle cx="560" cy="500" r="4"/><circle cx="700" cy="470" r="3"/><circle cx="760" cy="330" r="4"/>
+  </g>
+
+  <!-- the house (Gladys), left -->
+  <circle cx="190" cy="250" r="150" fill="url(#glow)"/>
+  <g transform="translate(190 250)">
+    <path d="M-80 0 L0 -70 L80 0" fill="none" stroke="#e8f5ee" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-60 -10 V70 H60 V-10" fill="#16352c" stroke="#e8f5ee" stroke-width="10" stroke-linejoin="round"/>
+    <rect x="-18" y="22" width="36" height="48" rx="4" fill="#25d366"/>
+    <circle cx="-34" cy="18" r="9" fill="#9be7b8"/>
+    <circle cx="34" cy="18" r="9" fill="#9be7b8"/>
+  </g>
+  <text x="190" y="370" fill="#9be7b8" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" text-anchor="middle">Gladys</text>
+
+  <!-- the phone, right -->
+  <rect x="520" y="70" width="190" height="370" rx="28" fill="url(#phone)" stroke="#3b4d55" stroke-width="5"/>
+  <rect x="536" y="104" width="158" height="300" rx="8" fill="#0d1418"/>
+  <rect x="595" y="84" width="40" height="7" rx="3.5" fill="#3b4d55"/>
+
+  <!-- incoming bubble (from Gladys) -->
+  <path d="M548 130 H660 Q672 130 672 142 V176 Q672 188 660 188 H560 L548 198 V142 Q548 130 560 130 Z" fill="#1f2c33"/>
+  <rect x="562" y="146" width="92" height="9" rx="4.5" fill="#8aa1ab"/>
+  <rect x="562" y="164" width="64" height="9" rx="4.5" fill="#8aa1ab"/>
+
+  <!-- outgoing bubble (from the user) -->
+  <path d="M584 218 H670 Q682 218 682 230 V286 L694 296 H596 Q584 296 584 284 V230 Q584 218 596 218 Z" fill="#005c4b"/>
+  <rect x="598" y="234" width="70" height="9" rx="4.5" fill="#cfeee3"/>
+  <rect x="598" y="252" width="52" height="9" rx="4.5" fill="#cfeee3"/>
+  <path d="M636 274 l6 6 l12 -12 M646 274 l6 6 l12 -12" fill="none" stroke="#53bdeb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- incoming bubble (reply) -->
+  <path d="M548 316 H650 Q662 316 662 328 V362 Q662 374 650 374 H560 L548 384 V328 Q548 316 560 316 Z" fill="#1f2c33"/>
+  <rect x="562" y="332" width="78" height="9" rx="4.5" fill="#8aa1ab"/>
+  <rect x="562" y="350" width="50" height="9" rx="4.5" fill="#8aa1ab"/>
+
+  <!-- the link between them -->
+  <g fill="none" stroke-width="7" stroke-linecap="round">
+    <path d="M290 230 C 370 200, 420 200, 500 220" stroke="#25d366" stroke-dasharray="2 16"/>
+    <path d="M500 290 C 420 310, 370 310, 290 280" stroke="#9be7b8" stroke-dasharray="2 16"/>
+  </g>
+  <path d="M488 210 L506 221 L489 234" fill="none" stroke="#25d366" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M302 268 L284 280 L302 292" fill="none" stroke="#9be7b8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- title -->
+  <text x="400" y="478" fill="#ffffff" font-family="DejaVu Sans, Arial, sans-serif" font-size="46" font-weight="bold" text-anchor="middle">WhatsApp</text>
+  <text x="400" y="512" fill="#9be7b8" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" text-anchor="middle">Cloud API · Gladys Assistant</text>
+</svg>
