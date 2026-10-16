@@ -5,7 +5,7 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/). This file is generated at
 each release from the Conventional Commits: do not edit it by hand.
 
-## [0.1.0] - unreleased
+## [0.1.0] - 2026-10-16
 
 ### Added
 
@@ -17,3 +17,5 @@ each release from the Conventional Commits: do not edit it by hand.
 - A dashboard widget: quality rating and messaging limit of the number, messages of the day, status, reception and linked contacts.
 - "Test the connection", "Register the webhook" and "Diagnostic" buttons; the diagnostic masks the token, the Open API key and the phone numbers.
 - English, French, German and Spanish everywhere: settings, replies, widget, scenes and documentation.
+
+[0.1.0]: https://github.com/William-De71/gladys-whatsapp/releases/tag/v0.1.0
