@@ -5,6 +5,12 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/). This file is generated at
 each release from the Conventional Commits: do not edit it by hand.
 
+## [0.1.1] - 2026-10-24
+
+### Security
+
+- **security:** build the image on Node.js 24.22.1 or later ([bf23fd1](https://github.com/William-De71/gladys-whatsapp/commit/bf23fd1ab8dd7ab608822819fd459c8ebd891d47))
+
 ## [0.1.0] - 2026-10-16
 
 ### Added
@@ -18,4 +24,5 @@ each release from the Conventional Commits: do not edit it by hand.
 - "Test the connection", "Register the webhook" and "Diagnostic" buttons; the diagnostic masks the token, the Open API key and the phone numbers.
 - English, French, German and Spanish everywhere: settings, replies, widget, scenes and documentation.
 
+[0.1.1]: https://github.com/William-De71/gladys-whatsapp/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/William-De71/gladys-whatsapp/releases/tag/v0.1.0
