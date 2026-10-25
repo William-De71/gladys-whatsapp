@@ -8,7 +8,7 @@ L'intégration passe par le cloud de Meta (`graph.facebook.com`) : les textes é
 
 ## Prérequis
 
-- Gladys Assistant 5.1.0 ou plus récent.
+- Gladys Assistant 5.3.0 ou plus récent.
 - Une [application Meta](https://developers.facebook.com/apps) de type Entreprise, avec le produit **WhatsApp**, et un numéro professionnel. Le numéro de test fourni par Meta fonctionne aussi, mais n'atteint que les 5 numéros enregistrés dans WhatsApp → Configuration de l'API.
 - Un **utilisateur système** (Paramètres de l'entreprise → Utilisateurs → Utilisateurs système) qui dispose de l'application et du compte WhatsApp, avec un jeton **sans expiration** et les autorisations `whatsapp_business_messaging` et `whatsapp_business_management`. Le jeton temporaire de la page de configuration de l'API expire au bout de 24 heures.
 - Gladys Plus, pour recevoir les messages.

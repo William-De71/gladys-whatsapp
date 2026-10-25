@@ -5,7 +5,7 @@
 [![Licencia: Apache-2.0](https://img.shields.io/badge/licencia-Apache--2.0-blue.svg)](LICENSE)
 [![Última versión](https://img.shields.io/github/v/release/William-De71/gladys-whatsapp?sort=semver)](https://github.com/William-De71/gladys-whatsapp/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-whatsapp/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-whatsapp/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![WhatsApp para Gladys Assistant](cover.jpg)
 
@@ -99,7 +99,7 @@ Ejemplos:
 
 ## Requisitos
 
-- Gladys Assistant **5.1.0** o posterior (las instancias más antiguas no pueden instalar la integración).
+- Gladys Assistant **5.3.0** o posterior (palabras clave y países del catálogo de Gladys 5.3; las instancias más antiguas no pueden instalar la integración).
 - Una aplicación de Meta de tipo Empresa con el producto WhatsApp, un número de empresa (o el número de prueba de Meta, que solo llega a 5 números registrados) y un token permanente de un usuario del sistema (`whatsapp_business_messaging`, `whatsapp_business_management`).
 - **Gladys Plus** para recibir mensajes (y para vincular números con un código enviado por WhatsApp).
 - Meta factura los mensajes enviados por una empresa según su tarifa (sobre todo las plantillas fuera de la ventana).

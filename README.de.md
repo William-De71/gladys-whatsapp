@@ -5,7 +5,7 @@
 [![Lizenz: Apache-2.0](https://img.shields.io/badge/Lizenz-Apache--2.0-blue.svg)](LICENSE)
 [![Neueste Version](https://img.shields.io/github/v/release/William-De71/gladys-whatsapp?sort=semver)](https://github.com/William-De71/gladys-whatsapp/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-whatsapp/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-whatsapp/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![WhatsApp für Gladys Assistant](cover.jpg)
 
@@ -99,7 +99,7 @@ Beispiele:
 
 ## Voraussetzungen
 
-- Gladys Assistant **5.1.0** oder neuer (ältere Instanzen können die Integration nicht installieren).
+- Gladys Assistant **5.3.0** oder neuer (Katalog-Schlagwörter und -Länder von Gladys 5.3; ältere Instanzen können die Integration nicht installieren).
 - Eine Meta-App vom Typ Business mit dem Produkt WhatsApp, eine geschäftliche Telefonnummer (oder die Testnummer von Meta, die nur 5 registrierte Nummern erreicht) und ein dauerhaftes Token eines Systembenutzers (`whatsapp_business_messaging`, `whatsapp_business_management`).
 - **Gladys Plus**, um Nachrichten zu empfangen (und um Nummern mit einem auf WhatsApp gesendeten Code zu verknüpfen).
 - Von einem Unternehmen gesendete Nachrichten werden von Meta nach dessen Preisliste abgerechnet (insbesondere Vorlagen außerhalb des Fensters).

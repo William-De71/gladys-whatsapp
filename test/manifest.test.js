@@ -51,7 +51,7 @@ test('one sync webhook through Gladys Plus; no other permission', () => {
   for (const key of ['location', 'network_wake', 'containers', 'network_discovery']) {
     assert.equal(manifest[key], undefined, key);
   }
-  assert.equal(manifest.gladys_version, '>=5.1.0');
+  assert.equal(manifest.gladys_version, '>=5.3.0');
   assert.deepEqual(manifest.categories, ['notifications', 'assistants']);
   // No widget button with a form: those need Gladys 5.2.0.
   assert.doesNotMatch(source('../src/widgets.js'), /fields:/);
@@ -139,4 +139,18 @@ test('limits of the store: counts, timeouts, sizes, no secret in widget settings
   const cover = readFileSync(new URL('../cover.jpg', import.meta.url));
   assert.ok(cover.length < 150 * 1024, `cover.jpg: ${cover.length} bytes`);
   assert.equal(cover.readUInt16BE(0), 0xffd8, 'cover.jpg is a JPEG');
+});
+
+test('catalog fields of Gladys 5.3: search keywords, available worldwide', () => {
+  assert.equal(manifest.gladys_version, '>=5.3.0');
+  assert.ok(Array.isArray(manifest.keywords), 'keywords');
+  assert.ok(manifest.keywords.length >= 1 && manifest.keywords.length <= 10, '1 to 10 keywords');
+  for (const keyword of manifest.keywords) {
+    assert.ok(keyword.length <= 30 && keyword.trim().length >= 2, keyword);
+  }
+  const normalized = manifest.keywords.map((keyword) => keyword.trim().toLowerCase());
+  assert.equal(new Set(normalized).size, normalized.length, 'unique once trimmed and lowercased');
+  assert.ok(!normalized.includes(manifest.name.toLowerCase()), 'the name is already searched');
+  // No `countries`: usable anywhere, the catalog shows it in every country.
+  assert.equal(manifest.countries, undefined);
 });

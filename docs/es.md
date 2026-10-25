@@ -8,7 +8,7 @@ La integración usa la nube de Meta (`graph.facebook.com`): los textos intercamb
 
 ## Requisitos
 
-- Gladys Assistant 5.1.0 o posterior.
+- Gladys Assistant 5.3.0 o posterior.
 - Una [aplicación de Meta](https://developers.facebook.com/apps) de tipo Empresa, con el producto **WhatsApp**, y un número de empresa. El número de prueba que ofrece Meta también funciona, pero solo llega a los 5 números registrados en WhatsApp → Configuración de la API.
 - Un **usuario del sistema** (Configuración del negocio → Usuarios → Usuarios del sistema) que tenga la aplicación y la cuenta de WhatsApp, con un token **sin caducidad** y los permisos `whatsapp_business_messaging` y `whatsapp_business_management`. El token temporal de la página de configuración de la API caduca a las 24 horas.
 - Gladys Plus, para recibir mensajes.
