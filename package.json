@@ -1,6 +1,6 @@
 {
   "name": "gladys-whatsapp",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "description": "External Gladys Assistant integration for WhatsApp, on the official WhatsApp Business Cloud API of Meta: talk to Gladys, notifications, templates, scenes and a dashboard widget.",
   "homepage": "https://github.com/William-De71/gladys-whatsapp",
